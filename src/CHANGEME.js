@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RemineTable from './components/Table/RemineTable/RemineTable';
 import NumberSelector from './components/Selectors/NumberSelector';
+import BuildingSelector from './components/Selectors/BuildingSelector';
 import API from './API';
 
 class Test extends Component {
@@ -68,12 +69,7 @@ class Test extends Component {
             title={'Max Beds'}
             updateNumber={this.updateNumber}
           />
-          <div className="filterItem">
-            <label htmlFor="buildingFilter">all types</label>
-            <select onChange={this.updateBuildingType}>
-              {buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
-            </select>
-          </div>
+          <BuildingSelector buildingTypes={buildingTypes} updateBuildingType={this.updateBuildingType} />
           <NumberSelector
             filterOptions={filterOptions}
             roomInputType={'minBaths'}
