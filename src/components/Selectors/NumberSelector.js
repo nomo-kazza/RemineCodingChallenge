@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { TEXT_TO_DISPLAY } from '../../constants/Labels';
 
 class NumberSelector extends Component {
   render() {
@@ -11,7 +12,7 @@ class NumberSelector extends Component {
         <input
           ref={input => (this.roomInputType = input)}
           type="number"
-          placeholder="enter min"
+          placeholder={title.slice(0, 3) === TEXT_TO_DISPLAY ? 'Enter min' : 'Enter Max'}
           name={roomInputType}
           value={theName}
           onChange={this.props.updateNumber}
