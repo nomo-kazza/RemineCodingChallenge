@@ -5,8 +5,8 @@ import API from './API';
 class Test extends Component {
   state = {
     locations: null,
-    buildinTypes: [],
-    buildingFilter: 'any type'
+    buildingTypes: [],
+    buildingFilter: 'all types'
   };
   componentWillMount() {
     API.getLocations()
@@ -23,8 +23,10 @@ class Test extends Component {
       })
       .catch(err => console.log('There was an error fetching building types', err));
   }
-  updateBuildingFilter = e => {
-    console.log('changed');
+  updateBuildingType = e => {
+    let newFilter = e.target.value;
+    console.log(newFilter);
+    this.setState({ buildingFilter: newFilter });
   };
   render() {
     const { locations, buildingTypes, buildingFilter } = this.state;
@@ -32,9 +34,9 @@ class Test extends Component {
       <div className="testContainer">
         <div className="filterContainer">
           <div>
-            <label htmlFor="buildingFilter">{'Building Type'}</label>
-            <select onChange={this.updateBuildingFilter}>
-              {this.state.buildingTypes && buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
+            <label htmlFor="buildingFilter">all types</label>
+            <select onChange={this.updateBuildingType}>
+              {buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
             </select>
           </div>
         </div>
@@ -42,7 +44,12 @@ class Test extends Component {
           <code>{JSON.stringify(buildingTypes, null, 2)}</code>
         </pre> */}
         {locations ? (
-          <RemineTable properties={locations} buildingTypes={buildingTypes} buildingFilter={buildingFilter} />
+          <RemineTable
+            properties={locations}
+            buildingTypes={buildingTypes}
+            buildingFilter={buildingFilter}
+            updateBuildingType={this.updateBuildingType}
+          />
         ) : (
           <h1>loading</h1>
         )}

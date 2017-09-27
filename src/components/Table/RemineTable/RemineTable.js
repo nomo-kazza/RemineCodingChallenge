@@ -5,13 +5,12 @@ import './RemineTable.css';
 class RemineTable extends Component {
   render() {
     const { buildingTypes, properties, buildingFilter: filter } = this.props;
-    console.log();
-    let filteredProperties;
-    filteredProperties = properties.filter(({ buildingType }) => filter === buildingType);
+    var filteredProperties;
+    filteredProperties = properties.filter(({ buildingType }) => buildingType === filter || filter === 'all types');
     return (
       <div className="tableContainer">
         <p>
-          Table length: <strong>{this.props.properties.length}</strong>
+          Table length: <strong>{filteredProperties.length}</strong>
         </p>
         <table className="remineTable">
           <thead>
@@ -23,7 +22,7 @@ class RemineTable extends Component {
             </tr>
           </thead>
           <tbody className="remineTableBody">
-            {this.props.properties.map(property => (
+            {filteredProperties.map(property => (
               <tr key={property.id}>
                 <td>{property.address}</td>
                 <td>{property.buildingType}</td>
