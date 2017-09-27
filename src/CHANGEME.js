@@ -4,22 +4,33 @@ import API from './API';
 
 class Test extends Component {
   state = {
-    locations: null
+    locations: null,
+    buildinTypes: []
   };
   componentWillMount() {
-    API.getLocations().then(({ data }) => {
-      console.log(data);
-      this.setState({ locations: data });
-    });
+    API.getLocations()
+      .then(({ data }) => {
+        this.setState({ locations: data });
+      })
+      .catch(err => console.log('There was an error fetching locations', err));
+    API.getBuildingTypes()
+      .then(({ data }) => {
+        let types = data.map(type => type.name);
+        types.push('all types');
+        types.reverse();
+        this.setState({ buildingTypes: types });
+      })
+      .catch(err => console.log('There was an error fetching building types', err));
   }
   render() {
+    const { locations, buildingTypes } = this.state;
     return (
       <div className="testContainer">
         <div className="filterContainer">Your filters go here.</div>
         <pre>
-          <code>{JSON.stringify(this.state.locations, null, 2)}</code>
+          <code>{JSON.stringify(buildingTypes, null, 2)}</code>
         </pre>
-        {this.state.locations ? <RemineTable properties={this.state.locations} /> : <h1>loading</h1>}
+        {locations ? <RemineTable properties={locations} /> : <h1>loading</h1>}
       </div>
     );
   }
