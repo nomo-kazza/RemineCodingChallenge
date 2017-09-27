@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RemineTable from './components/Table/RemineTable/RemineTable';
+import NumberSelector from './components/Selectors/NumberSelector';
 import API from './API';
 
 class Test extends Component {
@@ -9,7 +10,9 @@ class Test extends Component {
     filterOptions: {
       buildingFilter: 'all types',
       minBeds: 0,
-      maxBeds: 0
+      maxBeds: 0,
+      minBaths: 0,
+      maxBaths: 0
     }
   };
   componentWillMount() {
@@ -53,34 +56,36 @@ class Test extends Component {
     return (
       <div className="testContainer">
         <div className="filterContainer">
-          <div className="filterItem">
-            <label htmlFor="minBeds">Min Beds</label>
-            <input
-              ref={input => (this.minBeds = input)}
-              type="number"
-              placeholder="enter min"
-              name="minBeds"
-              value={this.state.minBeds}
-              onChange={this.updateNumber}
-            />
-          </div>
-          <div className="filterItem">
-            <label htmlFor="maxBeds">Max Beds</label>
-            <input
-              ref={input => (this.maxBeds = input)}
-              type="number"
-              placeholder="enter max"
-              name="maxBeds"
-              value={this.state.maxBeds}
-              onChange={this.updateNumber}
-            />
-          </div>
+          <NumberSelector
+            filterOptions={filterOptions}
+            roomInputType={'minBeds'}
+            title={'Min Beds'}
+            updateNumber={this.updateNumber}
+          />
+          <NumberSelector
+            filterOptions={filterOptions}
+            roomInputType={'maxBeds'}
+            title={'Max Beds'}
+            updateNumber={this.updateNumber}
+          />
           <div className="filterItem">
             <label htmlFor="buildingFilter">all types</label>
             <select onChange={this.updateBuildingType}>
               {buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
             </select>
           </div>
+          <NumberSelector
+            filterOptions={filterOptions}
+            roomInputType={'minBaths'}
+            title={'Min Baths'}
+            updateNumber={this.updateNumber}
+          />
+          <NumberSelector
+            filterOptions={filterOptions}
+            roomInputType={'maxBaths'}
+            title={'Max Baths'}
+            updateNumber={this.updateNumber}
+          />
         </div>
         {/* <pre>
           <code>{JSON.stringify(buildingTypes, null, 2)}</code>
