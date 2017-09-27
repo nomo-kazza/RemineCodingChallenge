@@ -40,3 +40,10 @@ Initial thought process:
 7. repeat step 6 for minimum number of bathrooms
 8. repeat step 7 for maximum number of bathrooms
 9. refactor any components that can be pulled from Test to separate components (make sure Test is passing data down and being updated in parent )
+
+Notes:
+
+I have removed the node modules folder for my submission so please be sure to npm install once you are in the project's root folder containing the package.json. 
+I also tried to follow the steps I initially listed in this README.md and make commits with each accomplishment or change to my thought process. Please feel free to reach out with any questions that you may have and I look forward to speaking with you about any opportunities with Remine.
+
+Thank you - Jared Edwards
