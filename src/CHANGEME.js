@@ -36,19 +36,7 @@ class Test extends Component {
       }
     }));
   };
-  updateMinBeds = e => {
-    let newNumber = e.target.value;
-    let newFilterOptions = {
-      ...this.state.filterOptions,
-      [e.target.name]: newNumber
-    };
-    this.setState(prevState => ({
-      filterOptions: {
-        ...newFilterOptions
-      }
-    }));
-  };
-  updateMaxBeds = e => {
+  updateNumber = e => {
     let newNumber = e.target.value;
     let newFilterOptions = {
       ...this.state.filterOptions,
@@ -79,7 +67,7 @@ class Test extends Component {
               placeholder="enter min"
               name="minBeds"
               value={this.state.minBeds}
-              onChange={this.updateMinBeds}
+              onChange={this.updateNumber}
             />
           </div>
           <div>
@@ -90,7 +78,7 @@ class Test extends Component {
               placeholder="enter min"
               name="maxBeds"
               value={this.state.maxBeds}
-              onChange={this.updateMaxBeds}
+              onChange={this.updateNumber}
             />
           </div>
         </div>
