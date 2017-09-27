@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function BuildingSelector(props) {
   const { buildingTypes, title } = props;
@@ -11,3 +12,12 @@ export default function BuildingSelector(props) {
     </div>
   );
 }
+
+BuildingSelector.defaultTypes = {
+  buildingTypes: []
+};
+
+BuildingSelector.propTypes = {
+  buildingTypes: PropTypes.array,
+  updateBuildingType: PropTypes.func
+};

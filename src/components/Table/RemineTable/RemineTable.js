@@ -48,11 +48,13 @@ class RemineTable extends Component {
 }
 
 RemineTable.defaultProps = {
-  properties: []
+  properties: [],
+  filterOptions: {}
 };
 
 RemineTable.propTypes = {
-  properties: PropTypes.array
+  properties: PropTypes.array,
+  filterOptions: PropTypes.object
 };
 
 export default RemineTable;
