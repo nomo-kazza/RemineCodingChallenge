@@ -6,7 +6,10 @@ class Test extends Component {
   state = {
     locations: null,
     buildingTypes: [],
-    buildingFilter: 'all types'
+    filterOptions: {
+      buildingFilter: 'all types',
+      minBeds: 0
+    }
   };
   componentWillMount() {
     API.getLocations()
@@ -24,12 +27,28 @@ class Test extends Component {
       .catch(err => console.log('There was an error fetching building types', err));
   }
   updateBuildingType = e => {
-    let newFilter = e.target.value;
-    console.log(newFilter);
-    this.setState({ buildingFilter: newFilter });
+    let newType = e.target.value;
+    this.setState(prevState => ({
+      filterOptions: {
+        ...prevState.filterOptions,
+        buildingFilter: newType
+      }
+    }));
+  };
+  updateMinBeds = e => {
+    let newNumber = e.target.value;
+    let newFilterOptions = {
+      ...this.state.filterOptions,
+      [e.target.name]: newNumber
+    };
+    this.setState(prevState => ({
+      filterOptions: {
+        ...newFilterOptions
+      }
+    }));
   };
   render() {
-    const { locations, buildingTypes, buildingFilter } = this.state;
+    const { locations, buildingTypes, filterOptions } = this.state;
     return (
       <div className="testContainer">
         <div className="filterContainer">
@@ -39,6 +58,17 @@ class Test extends Component {
               {buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
             </select>
           </div>
+          <div>
+            <label htmlFor="minBeds">Min Beds</label>
+            <input
+              ref={input => (this.minBeds = input)}
+              type="number"
+              placeholder="enter min"
+              name="minBeds"
+              value={this.state.minBeds}
+              onChange={this.updateMinBeds}
+            />
+          </div>
         </div>
         {/* <pre>
           <code>{JSON.stringify(buildingTypes, null, 2)}</code>
@@ -47,7 +77,8 @@ class Test extends Component {
           <RemineTable
             properties={locations}
             buildingTypes={buildingTypes}
-            buildingFilter={buildingFilter}
+            buildingFilter={filterOptions.buildingFilter}
+            minBeds={filterOptions.minBeds}
             updateBuildingType={this.updateBuildingType}
           />
         ) : (
