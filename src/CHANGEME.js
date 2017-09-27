@@ -53,13 +53,7 @@ class Test extends Component {
     return (
       <div className="testContainer">
         <div className="filterContainer">
-          <div>
-            <label htmlFor="buildingFilter">all types</label>
-            <select onChange={this.updateBuildingType}>
-              {buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
-            </select>
-          </div>
-          <div>
+          <div className="filterItem">
             <label htmlFor="minBeds">Min Beds</label>
             <input
               ref={input => (this.minBeds = input)}
@@ -70,16 +64,22 @@ class Test extends Component {
               onChange={this.updateNumber}
             />
           </div>
-          <div>
+          <div className="filterItem">
             <label htmlFor="maxBeds">Max Beds</label>
             <input
               ref={input => (this.maxBeds = input)}
               type="number"
-              placeholder="enter min"
+              placeholder="enter max"
               name="maxBeds"
               value={this.state.maxBeds}
               onChange={this.updateNumber}
             />
+          </div>
+          <div className="filterItem">
+            <label htmlFor="buildingFilter">all types</label>
+            <select onChange={this.updateBuildingType}>
+              {buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
+            </select>
           </div>
         </div>
         {/* <pre>
