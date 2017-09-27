@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class NumberSelector extends Component {
   render() {
@@ -20,3 +21,13 @@ class NumberSelector extends Component {
   }
 }
 export default NumberSelector;
+
+NumberSelector.defaultProps = {
+  filterOptions: {}
+};
+
+NumberSelector.propTypes = {
+  filterOptions: PropTypes.object.isRequired,
+  updateNumber: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
+};

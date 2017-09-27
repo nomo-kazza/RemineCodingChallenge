@@ -92,18 +92,7 @@ class Test extends Component {
             updateNumber={this.updateNumber}
           />
         </div>
-        {locations ? (
-          <RemineTable
-            properties={locations}
-            buildingTypes={buildingTypes}
-            buildingFilter={filterOptions.buildingFilter}
-            minBeds={filterOptions.minBeds}
-            maxBeds={filterOptions.maxBeds}
-            updateBuildingType={this.updateBuildingType}
-          />
-        ) : (
-          <h1>Loading..</h1>
-        )}
+        {locations ? <RemineTable properties={locations} filterOptions={filterOptions} /> : <h1>Loading..</h1>}
       </div>
     );
   }

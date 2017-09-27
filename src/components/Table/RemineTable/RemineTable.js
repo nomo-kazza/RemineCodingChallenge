@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ALL_TYPES } from '../../../constants/Labels';
 import './RemineTable.css';
 
 class RemineTable extends Component {
   render() {
-    const { buildingTypes, properties, buildingFilter: filter, minBeds, maxBeds } = this.props;
+    const { properties } = this.props;
+    const { buildingFilter: filter, minBeds, maxBeds, minBaths, maxBaths } = this.props.filterOptions;
     var filteredProperties;
     filteredProperties = properties.filter(
-      ({ buildingType, beds }) =>
-        buildingType === filter || (filter === 'all types' && beds >= minBeds && (!maxBeds || beds < maxBeds))
+      ({ buildingType, beds, baths }) =>
+        ((buildingType === filter || filter === ALL_TYPES) &&
+          beds >= minBeds &&
+          (!maxBeds || beds < maxBeds) &&
+          baths >= minBaths &&
+          (!maxBaths || baths < maxBaths)) ||
+        (maxBaths === null || maxBeds === null || minBaths === null)
     );
     return (
       <div className="tableContainer">
