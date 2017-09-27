@@ -8,7 +8,8 @@ class Test extends Component {
     buildingTypes: [],
     filterOptions: {
       buildingFilter: 'all types',
-      minBeds: 0
+      minBeds: 0,
+      maxBeds: 0
     }
   };
   componentWillMount() {
@@ -47,6 +48,18 @@ class Test extends Component {
       }
     }));
   };
+  updateMaxBeds = e => {
+    let newNumber = e.target.value;
+    let newFilterOptions = {
+      ...this.state.filterOptions,
+      [e.target.name]: newNumber
+    };
+    this.setState(prevState => ({
+      filterOptions: {
+        ...newFilterOptions
+      }
+    }));
+  };
   render() {
     const { locations, buildingTypes, filterOptions } = this.state;
     return (
@@ -69,6 +82,17 @@ class Test extends Component {
               onChange={this.updateMinBeds}
             />
           </div>
+          <div>
+            <label htmlFor="maxBeds">Max Beds</label>
+            <input
+              ref={input => (this.maxBeds = input)}
+              type="number"
+              placeholder="enter min"
+              name="maxBeds"
+              value={this.state.maxBeds}
+              onChange={this.updateMaxBeds}
+            />
+          </div>
         </div>
         {/* <pre>
           <code>{JSON.stringify(buildingTypes, null, 2)}</code>
@@ -79,6 +103,7 @@ class Test extends Component {
             buildingTypes={buildingTypes}
             buildingFilter={filterOptions.buildingFilter}
             minBeds={filterOptions.minBeds}
+            maxBeds={filterOptions.maxBeds}
             updateBuildingType={this.updateBuildingType}
           />
         ) : (

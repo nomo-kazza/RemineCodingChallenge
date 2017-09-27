@@ -4,10 +4,11 @@ import './RemineTable.css';
 
 class RemineTable extends Component {
   render() {
-    const { buildingTypes, properties, buildingFilter: filter, minBeds } = this.props;
+    const { buildingTypes, properties, buildingFilter: filter, minBeds, maxBeds } = this.props;
     var filteredProperties;
     filteredProperties = properties.filter(
-      ({ buildingType, beds }) => buildingType === filter || (filter === 'all types' && beds >= minBeds)
+      ({ buildingType, beds }) =>
+        buildingType === filter || (filter === 'all types' && beds >= minBeds && (!maxBeds || beds < maxBeds))
     );
     return (
       <div className="tableContainer">
