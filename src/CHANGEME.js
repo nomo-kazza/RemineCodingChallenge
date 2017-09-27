@@ -49,7 +49,7 @@ class Test extends Component {
     }
     let newFilterOptions = {
       ...this.state.filterOptions,
-      [e.target.name]: newNumber
+      [e.target.name]: parseInt(newNumber, 10)
     };
     this.setState(prevState => ({
       filterOptions: {

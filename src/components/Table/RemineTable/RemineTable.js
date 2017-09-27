@@ -15,7 +15,7 @@ class RemineTable extends Component {
           (!maxBeds || beds < maxBeds) &&
           baths >= minBaths &&
           (!maxBaths || baths < maxBaths)) ||
-        (maxBaths === null || maxBeds === null || minBaths === null)
+        (maxBaths === null || maxBeds === null || minBaths === null || minBeds === null)
     );
     return (
       <div className="tableContainer">
