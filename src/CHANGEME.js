@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import RemineTable from './components/Table/RemineTable/RemineTable';
 import NumberSelector from './components/Selectors/NumberSelector';
 import BuildingSelector from './components/Selectors/BuildingSelector';
+import * as Labels from './constants/Labels';
+import * as Titles from './constants/Titles';
 import API from './API';
 
 class Test extends Component {
@@ -9,7 +11,7 @@ class Test extends Component {
     locations: null,
     buildingTypes: [],
     filterOptions: {
-      buildingFilter: 'all types',
+      buildingFilter: Labels.ALL_TYPES,
       minBeds: 0,
       maxBeds: 0,
       minBaths: 0,
@@ -25,7 +27,7 @@ class Test extends Component {
     API.getBuildingTypes()
       .then(({ data }) => {
         let types = data.map(type => type.name);
-        types.push('all types');
+        types.push(Labels.ALL_TYPES);
         types.reverse();
         this.setState({ buildingTypes: types });
       })
@@ -42,6 +44,9 @@ class Test extends Component {
   };
   updateNumber = e => {
     let newNumber = e.target.value;
+    if (newNumber < 0 || newNumber == null) {
+      newNumber = 0;
+    }
     let newFilterOptions = {
       ...this.state.filterOptions,
       [e.target.name]: newNumber
@@ -59,33 +64,34 @@ class Test extends Component {
         <div className="filterContainer">
           <NumberSelector
             filterOptions={filterOptions}
-            roomInputType={'minBeds'}
-            title={'Min Beds'}
+            roomInputType={Labels.MIN_BEDS}
+            title={Titles.MIN_BEDS}
             updateNumber={this.updateNumber}
           />
           <NumberSelector
             filterOptions={filterOptions}
-            roomInputType={'maxBeds'}
-            title={'Max Beds'}
+            roomInputType={Labels.MAX_BEDS}
+            title={Titles.MAX_BEDS}
             updateNumber={this.updateNumber}
           />
-          <BuildingSelector buildingTypes={buildingTypes} updateBuildingType={this.updateBuildingType} />
-          <NumberSelector
-            filterOptions={filterOptions}
-            roomInputType={'minBaths'}
-            title={'Min Baths'}
-            updateNumber={this.updateNumber}
+          <BuildingSelector
+            buildingTypes={buildingTypes}
+            updateBuildingType={this.updateBuildingType}
+            title={Titles.BUILDING_TITLE}
           />
           <NumberSelector
             filterOptions={filterOptions}
-            roomInputType={'maxBaths'}
-            title={'Max Baths'}
+            roomInputType={Labels.MIN_BATHS}
+            title={Titles.MIN_BATHS}
+            updateNumber={this.updateNumber}
+          />
+          <NumberSelector
+            filterOptions={filterOptions}
+            roomInputType={Labels.MAX_BATHS}
+            title={Titles.MAX_BATHS}
             updateNumber={this.updateNumber}
           />
         </div>
-        {/* <pre>
-          <code>{JSON.stringify(buildingTypes, null, 2)}</code>
-        </pre> */}
         {locations ? (
           <RemineTable
             properties={locations}
@@ -96,7 +102,7 @@ class Test extends Component {
             updateBuildingType={this.updateBuildingType}
           />
         ) : (
-          <h1>loading</h1>
+          <h1>Loading..</h1>
         )}
       </div>
     );
