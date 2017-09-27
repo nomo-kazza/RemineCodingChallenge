@@ -5,7 +5,8 @@ import API from './API';
 class Test extends Component {
   state = {
     locations: null,
-    buildinTypes: []
+    buildinTypes: [],
+    buildingFilter: 'any type'
   };
   componentWillMount() {
     API.getLocations()
@@ -22,15 +23,29 @@ class Test extends Component {
       })
       .catch(err => console.log('There was an error fetching building types', err));
   }
+  updateBuildingFilter = e => {
+    console.log('changed');
+  };
   render() {
-    const { locations, buildingTypes } = this.state;
+    const { locations, buildingTypes, buildingFilter } = this.state;
     return (
       <div className="testContainer">
-        <div className="filterContainer">Your filters go here.</div>
-        <pre>
+        <div className="filterContainer">
+          <div>
+            <label htmlFor="buildingFilter">{'Building Type'}</label>
+            <select onChange={this.updateBuildingFilter}>
+              {this.state.buildingTypes && buildingTypes.map((type, i) => <option key={i}>{type}</option>)}
+            </select>
+          </div>
+        </div>
+        {/* <pre>
           <code>{JSON.stringify(buildingTypes, null, 2)}</code>
-        </pre>
-        {locations ? <RemineTable properties={locations} /> : <h1>loading</h1>}
+        </pre> */}
+        {locations ? (
+          <RemineTable properties={locations} buildingTypes={buildingTypes} buildingFilter={buildingFilter} />
+        ) : (
+          <h1>loading</h1>
+        )}
       </div>
     );
   }
