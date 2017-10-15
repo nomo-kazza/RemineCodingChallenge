@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ALL_TYPES } from '../../../constants/Labels';
+import DefaultTable from '../AlternativeTables/DefaultTable';
+import ReactFixedDataTable from '../AlternativeTables/ReactFixedDataTable';
+import ReactVirtualizedTable from '../AlternativeTables/ReactVirtualizedTable';
+
 import './RemineTable.css';
 
 class RemineTable extends Component {
@@ -22,26 +26,9 @@ class RemineTable extends Component {
         <p>
           Table length: <strong>{filteredProperties.length}</strong>
         </p>
-        <table className="remineTable">
-          <thead>
-            <tr>
-              <th>Address</th>
-              <th>Building Type</th>
-              <th>Beds</th>
-              <th>Baths</th>
-            </tr>
-          </thead>
-          <tbody className="remineTableBody">
-            {filteredProperties.map(property => (
-              <tr key={property.id}>
-                <td>{property.address}</td>
-                <td>{property.buildingType}</td>
-                <td>{property.beds}</td>
-                <td>{property.baths}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* <DefaultTable filteredProperties={filteredProperties} /> */}
+        {/* <ReactFixedDataTable filteredProperties={filteredProperties} /> */}
+        <ReactVirtualizedTable filteredProperties={filteredProperties} />
       </div>
     );
   }
